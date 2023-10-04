@@ -1,16 +1,22 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
-const port = process.env.PORT || 3005; // Use the PORT environment variable or default to 3000
+const port = process.env.PORT || 3005;
 
-// Middleware for parsing JSON requests
+
+app.use(cors({
+  origin: 'https://aigen-dev-ed.develop.lightning.force.com/',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+}));
+
 app.use(express.json());
 
-// Import your API controller
 const apiController = require('./controllers/apiController');
 
-// Define an API route to generate text
+// API route to generate text
 app.post('/generate-text', async (req, res) => {
-    const { userMessage } = req.body; // Directly extract the user message
+    const { userMessage } = req.body;
 
     // Construct or retrieve the conversation messages array
     const conversation = [
@@ -26,7 +32,6 @@ app.post('/generate-text', async (req, res) => {
     }
 });
 
-// Start the Express server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
