@@ -3,6 +3,11 @@ const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 3005;
 
+app.options('/generate-text', cors({
+  origin: 'https://aigen-dev-ed.develop.lightning.force.com',
+  methods: ['POST'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 app.use(cors({
   origin: 'https://aigen-dev-ed.develop.lightning.force.com/',
