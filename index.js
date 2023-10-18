@@ -1,19 +1,13 @@
 const express = require('express');
-const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 3005;
 
-app.options('/generate-text', cors({
-  origin: 'https://aigen-dev-ed.develop.lightning.force.com',
-  methods: ['POST'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
-
-app.use(cors({
-  origin: 'https://aigen-dev-ed.develop.lightning.force.com/',
-  methods: 'POST',
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://aigen-dev-ed.develop.lightning.force.com");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  next();
+});
 
 app.use(express.json());
 
