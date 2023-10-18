@@ -6,8 +6,8 @@ const port = process.env.PORT || 3005;
 
 app.use(cors({
   origin: 'https://aigen-dev-ed.develop.lightning.force.com/',
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true,
+  methods: 'POST',
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 app.use(express.json());
