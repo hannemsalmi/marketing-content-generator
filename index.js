@@ -15,7 +15,7 @@ const apiController = require('./controllers/apiController');
 
 // API route to generate text
 app.post('/generate-text', async (req, res) => {
-    const { userMessage } = req.body;
+    const { userMessage, temperature } = req.body;
 
     // Construct or retrieve the conversation messages array
     const conversation = [
@@ -24,7 +24,7 @@ app.post('/generate-text', async (req, res) => {
     ];
 
     try {
-        const generatedText = await apiController.generateText(conversation);
+        const generatedText = await apiController.generateText(conversation, temperature);
         res.json({ text: generatedText });
     } catch (error) {
         res.status(500).json({ error: 'An error occurred' });

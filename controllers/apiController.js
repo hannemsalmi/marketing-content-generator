@@ -4,7 +4,7 @@ require('dotenv').config();
 const GPT4_API_KEY = process.env.GPT4_API_KEY; // Your GPT-4 API key
 
 // Function to generate text using GPT-4
-async function generateText(messages) {
+async function generateText(messages, temperature) {
   try {
     // Check if messages array is provided
     if (!messages || !Array.isArray(messages)) {
@@ -15,6 +15,7 @@ async function generateText(messages) {
     const requestPayload = {
       model: 'gpt-4',
       messages,
+      temperature: temperature, // 2 = more random and creative, 0 = less random and more deterministic
     };
 
     // Set up the options for the GPT-4 API request
