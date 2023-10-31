@@ -18,13 +18,15 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 const apiController = require("./controllers/apiController");
+const userMessageBuilder = require("./messageBuilder/userMessageBuilder")
 
 const adminRoute = require("./salesForce/route"); // Importing the route
 app.use("/admin", adminRoute); //Setting the admin routes
 
 // API route to generate text
 app.post("/generate-text", async (req, res) => {
-  const { userMessage, temperature } = req.body;
+  const { userTopic, userContentType, userRecipient, userTemperature } = req.body;
+  const userMessage = userMessageBuilder.buildMessage(userTopic, userContentType, userRecipient);
 
   // Construct or retrieve the conversation messages array
   const conversation = [
@@ -35,7 +37,7 @@ app.post("/generate-text", async (req, res) => {
   try {
     const generatedText = await apiController.generateText(
       conversation,
-      temperature
+      userTemperature
     );
     res.json({ text: generatedText });
   } catch (error) {
