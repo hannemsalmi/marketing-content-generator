@@ -5,7 +5,7 @@ const port = process.env.PORT || 3005;
 app.use((req, res, next) => {
   res.header(
     "Access-Control-Allow-Origin",
-    "https://aigen-dev-ed.develop.lightning.force.com"
+    "https://marketing-content-generator-02c05e08f82e.herokuapp.com"
   );
   res.header(
     "Access-Control-Allow-Headers",
