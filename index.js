@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 3005;
+const generateSearchQuery = require('./searchQuery');
 
 app.use((req, res, next) => {
   res.header(
@@ -39,6 +40,13 @@ app.post("/generate-text", async (req, res) => {
       conversation,
       userTemperature
     );
+
+    // Use the OpenAI-generated search query
+    const openaiSearchQueryResult = await generateSearchQuery(userTopic, userIndustry, userTemperature);
+
+    // Construct the Adobe Stock link using the generated search query
+    const adobeStockLink = `https://stock.adobe.com/images/search?k=${encodeURIComponent(openaiSearchQueryResult)}`;
+
     res.json({ text: generatedText });
   } catch (error) {
     console.error(error);
