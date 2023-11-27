@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 3005;
-const generateSearchQuery = require('./searchQuery');
+const generateSearchQuery = require('./controllers/searchQuery');
 
 app.use((req, res, next) => {
   res.header(
@@ -31,7 +31,7 @@ app.post("/generate-text", async (req, res) => {
 
   // Construct or retrieve the conversation messages array
   const conversation = [
-    { role: "system", content: "You are a helpful assistant." },
+    { role: "system", content: "You are a helpful assistant that helps to write advertisements to customers of a salesforce consulting company." },
     { role: "user", content: userMessage }, // User's input
   ];
 
@@ -51,6 +51,20 @@ app.post("/generate-text", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });
+  }
+});
+
+app.get("/check-message", async (req, res) => {
+  const { userTopic, userContentType, userRecipient, userIndustry} = req.body;
+  const userMessage = userMessageBuilder.buildMessage(userTopic, userContentType, userRecipient, userIndustry);
+
+  try {
+    res.json({text: userMessage});
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+
   }
 });
 
