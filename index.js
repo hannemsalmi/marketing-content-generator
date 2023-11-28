@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 3005;
-const generateSearchQuery = require('./controllers/searchQuery');
+const generateSearchQuery = require('./searchQuery/searchQueryHelper');
 
 app.use((req, res, next) => {
   res.header(
