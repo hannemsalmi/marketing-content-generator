@@ -47,7 +47,7 @@ app.post("/generate-text", async (req, res) => {
     // Construct the Adobe Stock link using the generated search query
     const adobeStockLink = `https://stock.adobe.com/images/search?k=${encodeURIComponent(openaiSearchQueryResult)}`;
 
-    res.json({ text: generatedText, link: adobeStockLink });
+    res.json({ text: generatedText});
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });
