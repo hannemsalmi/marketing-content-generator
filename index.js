@@ -3,7 +3,17 @@ const cors = require("cors");
 const app = express();
 const port = process.env.PORT || 3005;
 const generateSearchQuery = require("./searchQuery/searchQueryHelper");
-app.use(cors());
+
+// Addin this part of code for testing purpose
+app.use(
+  cors({
+    origin: "https://aigen-dev-ed.develop.lightning.force.com",
+    methods: "GET, POST, OPTIONS",
+    allowedHeaders: "Content-Type, Accept, Authorization",
+  })
+);
+
+/* Commenting for test
 app.use((req, res, next) => {
   res.header(
     "Access-Control-Allow-Origin",
@@ -16,7 +26,7 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   next();
 });
-
+*/
 app.use(express.json());
 
 const apiController = require("./controllers/apiController");
