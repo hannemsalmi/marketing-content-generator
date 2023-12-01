@@ -4,6 +4,8 @@ const app = express();
 const port = process.env.PORT || 3005;
 const generateSearchQuery = require("./searchQuery/searchQueryHelper");
 
+let systemMessage = process.env.DEFAULT_SYSTEM_MESSAGE;
+
 // Addin this part of code for testing purpose
 app.use(
   cors({
@@ -53,11 +55,7 @@ app.post("/generate-text", async (req, res) => {
 
   // Construct or retrieve the conversation messages array
   const conversation = [
-    {
-      role: "system",
-      content:
-        "You are a helpful assistant that helps to write advertisements to customers of a salesforce consulting company.",
-    },
+    { role: "system", content: systemMessage },
     { role: "user", content: userMessage }, // User's input
   ];
 
@@ -101,6 +99,11 @@ app.get("/check-message", async (req, res) => {
     console.error(error);
     res.status(500).json({ error: error.message });
   }
+});
+
+app.post('/adminsettings', (req, res) => {
+  systemMessage = req.body.systemMessage;
+  res.status(200).send('System message updated');
 });
 
 app.listen(port, () => {
