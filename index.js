@@ -106,6 +106,10 @@ app.post('/adminsettings', (req, res) => {
   res.status(200).send('System message updated');
 });
 
+app.get('/get-system-message', (req, res) => {
+  res.json({ systemMessage: systemMessage });
+});
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
