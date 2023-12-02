@@ -101,13 +101,21 @@ app.get("/check-message", async (req, res) => {
   }
 });
 
-app.post('/adminsettings', (req, res) => {
+//Route to set system message
+app.post('/set-system-message', (req, res) => {
   systemMessage = req.body.systemMessage;
   res.status(200).send('System message updated');
 });
 
+//Get current system message
 app.get('/get-system-message', (req, res) => {
   res.json({ systemMessage: systemMessage });
+});
+
+//Reset to default system message from env variable
+app.post('/reset-system-message', (req, res) => {
+  systemMessage = process.env.DEFAULT_SYSTEM_MESSAGE;
+  res.status(200).send('System message reset to default');
 });
 
 app.listen(port, () => {
