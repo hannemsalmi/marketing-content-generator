@@ -38,7 +38,7 @@ const adminRoute = require("./salesForce/route"); // Importing the route
 app.use("/admin", adminRoute); //Setting the admin routes
 
 // API route to generate text
-app.post("/generate-text", async (req, res) => {
+app.post("/generate-text", cors(), async (req, res) => {
   const {
     userTopic,
     userContentType,
@@ -102,20 +102,20 @@ app.get("/check-message", async (req, res) => {
 });
 
 //Route to set system message
-app.post('/set-system-message', (req, res) => {
+app.post("/set-system-message", (req, res) => {
   systemMessage = req.body.systemMessage;
-  res.status(200).send('System message updated');
+  res.status(200).send("System message updated");
 });
 
 //Get current system message
-app.get('/get-system-message', (req, res) => {
+app.get("/get-system-message", (req, res) => {
   res.json({ systemMessage: systemMessage });
 });
 
 //Reset to default system message from env variable
-app.post('/reset-system-message', (req, res) => {
+app.post("/reset-system-message", (req, res) => {
   systemMessage = process.env.DEFAULT_SYSTEM_MESSAGE;
-  res.status(200).send('System message reset to default');
+  res.status(200).send("System message reset to default");
 });
 
 app.listen(port, () => {
