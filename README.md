@@ -49,6 +49,26 @@ npm start
 
 The application will be accessible at `http://localhost:3005`.
 
+## Sending Requests with Postman
+
+**1. Download, Install and Launch Postman:**
+   If you haven't already, download and install [Postman](https://www.postman.com/downloads/) on your machine.
+
+**2. Configure the Request:**
+   Create a new request and set it to a POST method. Enter the request URL as `localhost:3005/generate-text`.
+
+**3. Set Request Body:**
+   Navigate to the "Body" tab, select "raw," and set the data type to "JSON (application/json)." Use the example request below as a starting point. Replace the values with your data.
+```json
+{
+"userTopic": "advertice of Salesforce consulting services",
+"userContentType": "email",
+"userRecipient": "sales",
+"userIndustry": "education",
+"userTemperature": 0.2
+}
+```
+
 ## User Message Builder
 The `userMessageBuilder.js` module exports a function `buildMessage` that takes parameters for the topic, content type, recipient, and industry. The function returns a formatted user message object containing this information.
 
