@@ -15,6 +15,7 @@ async function generateText(messages, temperature) {
       model: "gpt-4",
       messages,
       temperature: temperature, // 2 = more random and creative, 0 = less random and more deterministic
+      max_tokens: 250,
     };
 
     // Set up the options for the GPT-4 API request

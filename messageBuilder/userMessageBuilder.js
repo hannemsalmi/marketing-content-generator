@@ -10,7 +10,7 @@ function buildMessage(topic, content_type, recipient, industry) { // Builds mess
     } else if (content_type == "email") {
         finalContent_type = "email to send to the customer's mailing list. Please insert line breaks as <br> and bold the subject line with <b> and </b>. Please also insert two line breaks after the subject and also when the paragraph changes.";
 
-    }
+    } 
 
     return "Write a " + finalContent_type
         + ". Topic: " + topic
