@@ -84,7 +84,7 @@ app.post("/generate-text", cors(), async (req, res) => {
   }
 });
 
-app.get("/check-message", async (req, res) => {
+app.post("/check-message", async (req, res) => {
   const { userTopic, userContentType, userRecipient, userIndustry } = req.body;
   const userMessage = userMessageBuilder.buildMessage(
     userTopic,
