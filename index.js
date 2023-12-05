@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const port = process.env.PORT || 3005;
-const generateSearchQuery = require("./searchQuery/searchQueryHelper");
+
 
 let systemMessage = process.env.DEFAULT_SYSTEM_MESSAGE;
 
@@ -33,6 +33,7 @@ app.use(express.json());
 
 const apiController = require("./controllers/apiController");
 const userMessageBuilder = require("./messageBuilder/userMessageBuilder");
+const generateSearchQuery = require('./searchQuery/generateSearchQuery');
 
 const adminRoute = require("./salesForce/route"); // Importing the route
 app.use("/admin", adminRoute); //Setting the admin routes
@@ -73,9 +74,8 @@ app.post("/generate-text", cors(), async (req, res) => {
     );
 
     // Construct the Adobe Stock link using the generated search query
-    const adobeStockLink = `https://stock.adobe.com/images/search?k=${encodeURIComponent(
-      openaiSearchQueryResult
-    )}`;
+    console.log('OpenAI Search Query Result:', openaiSearchQueryResult);
+    const adobeStockLink = `https://stock.adobe.com/images/search?k=${encodeURIComponent(openaiSearchQueryResult)}`;
 
     res.json({ text: generatedText, adobeStockLink });
   } catch (error) {
