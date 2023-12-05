@@ -7,13 +7,13 @@ const port = process.env.PORT || 3005;
 let systemMessage = process.env.DEFAULT_SYSTEM_MESSAGE;
 
 // Addin this part of code for testing purpose
-app.use(
+/*app.use(
   cors({
     origin: "https://aigen-dev-ed.develop.lightning.force.com",
     methods: "GET, POST, OPTIONS",
     allowedHeaders: "Content-Type, Accept, Authorization",
   })
-);
+);*/
 
 
 app.use((req, res, next) => {
@@ -33,7 +33,7 @@ app.use(express.json());
 
 const apiController = require("./controllers/apiController");
 const userMessageBuilder = require("./messageBuilder/userMessageBuilder");
-const generateSearchQuery = require('./searchQuery/generateSearchQuery');
+const generateSearchQuery = require('./searchQuery/searchQueryHelper');
 
 const adminRoute = require("./salesForce/route"); // Importing the route
 app.use("/admin", adminRoute); //Setting the admin routes
