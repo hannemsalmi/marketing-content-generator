@@ -15,7 +15,7 @@ app.use(
   })
 );
 
-/* Commenting for test
+
 app.use((req, res, next) => {
   res.header(
     "Access-Control-Allow-Origin",
@@ -28,7 +28,7 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   next();
 });
-*/
+
 app.use(express.json());
 
 const apiController = require("./controllers/apiController");
