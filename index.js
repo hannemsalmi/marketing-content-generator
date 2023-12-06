@@ -74,7 +74,7 @@ app.post("/generate-text", cors(), async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-/*
+
 app.post('/generate-query-link', async (req, res) => {
   const { userTopic, userIndustry, userTemperature } = req.body;
 
@@ -85,7 +85,7 @@ app.post('/generate-query-link', async (req, res) => {
     console.error(error);
     res.status(500).json({ error: error.message });
   }
-});*/
+});
 
 app.post("/check-message", async (req, res) => {
   const { userTopic, userContentType, userRecipient, userIndustry } = req.body;
