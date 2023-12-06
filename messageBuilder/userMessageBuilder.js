@@ -15,7 +15,7 @@ function buildMessage(topic, content_type, recipient, industry) { // Builds mess
     return "Write a " + finalContent_type
         + ". Topic: " + topic
         + ". Recipient works in " + recipient
-        + " in " + industry + " industry.";
+        + " in " + industry + " industry. Generate a search query for Adobe Stock based on the information given.";
 
 }
 
