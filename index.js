@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const fetch = require('node-fetch');
 const port = process.env.PORT || 3005;
 
 
@@ -33,7 +34,8 @@ app.use(express.json());
 
 const apiController = require("./controllers/apiController");
 const userMessageBuilder = require("./messageBuilder/userMessageBuilder");
-const generateSearchQuery = require('./searchQuery/searchQueryHelper');
+const generateSearchQuery = require("./searchQuery/searchQueryHelper");
+
 
 const adminRoute = require("./salesForce/route"); // Importing the route
 app.use("/admin", adminRoute); //Setting the admin routes
@@ -66,18 +68,19 @@ app.post("/generate-text", cors(), async (req, res) => {
       userTemperature
     );
 
-    // Use the OpenAI-generated search query
-    const openaiSearchQueryResult = await generateSearchQuery(
-      userTopic,
-      userIndustry,
-      userTemperature
-    );
+    res.json({ text: generatedText});
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
+});
 
-    // Construct the Adobe Stock link using the generated search query
-    console.log('OpenAI Search Query Result:', openaiSearchQueryResult);
-    const adobeStockLink = `https://stock.adobe.com/images/search?k=${encodeURIComponent(openaiSearchQueryResult)}`;
+app.post('/generate-query-link', async (req, res) => {
+  const { userTopic, userIndustry, userTemperature } = req.body;
 
-    res.json({ text: generatedText, adobeStockLink });
+  try {
+    const generatedSearchQuery = await generateSearchQuery(userTopic, userIndustry, userTemperature);
+    res.json({ searchQuery: generatedSearchQuery });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });

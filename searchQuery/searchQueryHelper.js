@@ -2,6 +2,7 @@ const fetch = require('node-fetch');
 require('dotenv').config();
 const GPT4_API_KEY = process.env.GPT4_API_KEY;
 
+
 // Function to generate search query using GPT-4
 async function generateSearchQuery(userTopic, userIndustry, temperature) {
   try {
