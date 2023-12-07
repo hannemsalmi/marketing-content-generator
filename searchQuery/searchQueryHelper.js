@@ -4,17 +4,18 @@ const GPT4_API_KEY = process.env.GPT4_API_KEY;
 
 
 // Function to generate search query using GPT-4
-async function generateSearchQuery(userTopic, userIndustry, temperature) {
+async function generateAdobeStockSearchLink(userTopic, userIndustry, temperature) {
   try {
     // Construct the request payload
     const requestPayload = {
       model: 'gpt-4',
       messages: [
         { role: 'system', content: 'You are a helpful assistant.' },
-        { role: 'user', content: `Generate a search query for Adobe Stock based on the user's topic (${userTopic}) and industry (${userIndustry}).` },
+        { role: 'user', content: `Generate search keywords for Adobe Stock based on the user's topic (${userTopic}) and industry (${userIndustry}).` },
       ],
       temperature: temperature,
-      // Add any additional parameters you may need
+      max_tokens: 30, // You can adjust the max_tokens based on your needs
+      n: 3, // Requesting 3 completions
     };
 
     // Set up the options for the GPT-4 API request
@@ -36,15 +37,22 @@ async function generateSearchQuery(userTopic, userIndustry, temperature) {
       throw new Error(JSON.stringify(errorData));
     }
 
-    // Process the response and return the generated search query
+    // Process the response and extract the generated keywords
     const responseData = await gpt4ApiResponse.json();
-    const searchQuery = responseData.choices[0].message.content.trim();
-    return searchQuery;
+    const keywords = responseData.choices.map(choice => choice.message.content.trim());
+
+    // Combine the keywords into a single string with the appropriate format
+    const searchKeywords = keywords.join('+');
+
+    // Construct the Adobe Stock search link
+    const adobeStockSearchLink = `https://stock.adobe.com/ie/search?k=${searchKeywords}&search_type=usertyped`;
+
+    return adobeStockSearchLink;
   } catch (error) {
     // Handle errors
-    console.error('Error generating search query:', error);
+    console.error('Error generating Adobe Stock search link:', error);
     throw error;
   }
 }
 
-module.exports = generateSearchQuery;
+module.exports = generateAdobeStockSearchLink;
