@@ -43,7 +43,7 @@ async function generateSearchQuery(userTopic, userIndustry, temperature) {
     const keywords = responseData.choices.map((choice) => choice.message.content.trim());
 
     // Remove hyphens from each keyword
-    const sanitizedKeywords = keywords.map(keyword => keyword.replace(/-"/g, ''));
+    const sanitizedKeywords = keywords.map(keyword => keyword.replace(/"/g, ''));
 
     // Encode spaces in the keywords
     const encodedKeywords = sanitizedKeywords.map(keyword => encodeURIComponent(keyword));
