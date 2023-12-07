@@ -42,8 +42,14 @@ async function generateSearchQuery(userTopic, userIndustry, temperature) {
     const responseData = await gpt4ApiResponse.json();
     const keywords = responseData.choices.map((choice) => choice.message.content.trim());
 
-    // Construct the Adobe Stock URL with the generated keywords
-    const adobeStockURL = `https://stock.adobe.com/ie/search?k=${keywords.map(keyword => encodeURIComponent(keyword)).join('+')}`;
+    // Remove hyphens from each keyword
+    const sanitizedKeywords = keywords.map(keyword => keyword.replace(/-/g, ''));
+
+    // Encode spaces in the keywords
+    const encodedKeywords = sanitizedKeywords.map(keyword => encodeURIComponent(keyword));
+
+    // Construct the Adobe Stock URL with the encoded keywords
+    const adobeStockURL = `https://stock.adobe.com/ie/search?k=${encodedKeywords.join('+')}`;
 
     return adobeStockURL;
   } catch (error) {
