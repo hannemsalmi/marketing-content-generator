@@ -15,7 +15,7 @@ function buildMessage(topic, content_type, recipient, industry) { // Builds mess
     return "Write " + finalContent_type
         + ". Topic: " + topic
         + ". Recipient works in " + recipient
-        + " in " + industry + " industry.";
+        + " in " + industry + " industry. Do this from the perspective of employee working for Fluido";
 
 }
 
