@@ -34,7 +34,7 @@ app.use(express.json());
 
 const apiController = require("./controllers/apiController");
 const userMessageBuilder = require("./messageBuilder/userMessageBuilder");
-const generateAdobeStockSearchLink = require("./searchQuery/searchQueryHelper");
+const generateSearchQuery = require("./searchQuery/searchQueryHelper");
 
 
 const adminRoute = require("./salesForce/route"); // Importing the route
@@ -79,7 +79,7 @@ app.post('/generate-query-link', async (req, res) => {
   const { userTopic, userIndustry, userTemperature } = req.body;
 
   try {
-    const generatedSearchQuery = await generateAdobeStockSearchLink(userTopic, userIndustry, userTemperature);
+    const generatedSearchQuery = await generateSearchQuery(userTopic, userIndustry, userTemperature);
     res.json({ searchQuery: generatedSearchQuery });
   } catch (error) {
     console.error(error);
