@@ -6,12 +6,14 @@ const GPT4_API_KEY = process.env.GPT4_API_KEY;
 // Function to generate search query using GPT-4
 async function generateSearchQuery(userTopic, userIndustry, temperature) {
   try {
-    // Construct the request payload
+    // Construct the request payload with three user messages
     const requestPayload = {
       model: 'gpt-4',
       messages: [
         { role: 'system', content: 'You are a helpful assistant.' },
-        { role: 'user', content: `Generate a link to Adobe Stock images based on the user's topic (${userTopic}) and industry (${userIndustry}).` },
+        { role: 'user', content: `Generate a keyword related to the user's topic (${userTopic}).` },
+        { role: 'user', content: `Generate a keyword related to the user's industry (${userIndustry}).` },
+        { role: 'user', content: 'Generate a keyword to match the two previous one to improve the search.' },
       ],
       temperature: temperature,
       // Add any additional parameters you may need
@@ -36,10 +38,14 @@ async function generateSearchQuery(userTopic, userIndustry, temperature) {
       throw new Error(JSON.stringify(errorData));
     }
 
-    // Process the response and return the generated search query
+    // Process the response and return the generated keywords
     const responseData = await gpt4ApiResponse.json();
-    const searchQuery = responseData.choices[0].message.content.trim();
-    return searchQuery;
+    const keywords = responseData.choices.map((choice) => choice.message.content.trim());
+
+    // Construct the Adobe Stock URL with the generated keywords
+    const adobeStockURL = `https://stock.adobe.com/ie/search?k=${keywords.join('+')}`;
+
+    return adobeStockURL;
   } catch (error) {
     // Handle errors
     console.error('Error generating search query:', error);
