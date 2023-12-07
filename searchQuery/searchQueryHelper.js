@@ -11,9 +11,9 @@ async function generateSearchQuery(userTopic, userIndustry, temperature) {
       model: 'gpt-4',
       messages: [
         { role: 'system', content: 'You are a helpful assistant.' },
-        { role: 'user', content: `Generate a keyword related to the user's topic (${userTopic}).` },
-        { role: 'user', content: `Generate a keyword related to the user's industry (${userIndustry}).` },
-        { role: 'user', content: 'Generate a keyword to match the two previous one to improve the search.' },
+        { role: 'user', content: `Generate a keyword related to the user's topic (${userTopic}) which would work well in Adobe Stock Search Query.` },
+        { role: 'user', content: `Generate a keyword related to the user's industry (${userIndustry}) which would work well in Adobe Stock Search Query.` },
+        
       ],
       temperature: temperature,
       // Add any additional parameters you may need
@@ -43,7 +43,7 @@ async function generateSearchQuery(userTopic, userIndustry, temperature) {
     const keywords = responseData.choices.map((choice) => choice.message.content.trim());
 
     // Remove hyphens from each keyword
-    const sanitizedKeywords = keywords.map(keyword => keyword.replace(/-/g, ''));
+    const sanitizedKeywords = keywords.map(keyword => keyword.replace(/-"/g, ''));
 
     // Encode spaces in the keywords
     const encodedKeywords = sanitizedKeywords.map(keyword => encodeURIComponent(keyword));
