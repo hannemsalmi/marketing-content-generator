@@ -11,7 +11,7 @@ async function generateSearchQuery(userTopic, userIndustry, temperature) {
       model: 'gpt-4',
       messages: [
         { role: 'system', content: 'You are a helpful assistant.' },
-        { role: 'user', content: `Generate a search query for Adobe Stock based on the user's topic (${userTopic}) and industry (${userIndustry}).` },
+        { role: 'user', content: `Generate a link to Adobe Stock images based on the user's topic (${userTopic}) and industry (${userIndustry}).` },
       ],
       temperature: temperature,
       // Add any additional parameters you may need
