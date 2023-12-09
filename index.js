@@ -131,10 +131,16 @@ app.post("/reset-system-message", (req, res) => {
 
 // Endpoint to get default instruction for a given content type
 app.get("/get-default-instruction/:contentType", (req, res) => {
-    const contentType = req.params.contentType;
-    const defaultInstruction = process.env[`DEFAULT_${contentType.toUpperCase()}_INSTRUCTION`];
-    res.json({ defaultInstruction: defaultInstruction || 'Default instruction not found' });
+  const contentType = req.params.contentType.toUpperCase();
+  const defaultInstruction = process.env[`DEFAULT_${contentType}_INSTRUCTION`];
+
+  if (defaultInstruction) {
+      res.json({ defaultInstruction: defaultInstruction });
+  } else {
+      res.status(404).json({ error: 'Default instruction not found' });
+  }
 });
+
 
 
 app.post("/update-instructions", (req, res) => {
