@@ -17,7 +17,7 @@ let systemMessage = process.env.DEFAULT_SYSTEM_MESSAGE;
 );*/
 
 
-app.use((req, res, next) => {
+/*app.use((req, res, next) => {
   res.header(
     "Access-Control-Allow-Origin",
     "https://aigen-dev-ed.develop.lightning.force.com"
@@ -28,7 +28,16 @@ app.use((req, res, next) => {
   );
   res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   next();
-});
+}); */
+
+const corsOptions = {
+  origin: "https://aigen-dev-ed.develop.lightning.force.com",
+  methods: "GET, POST, OPTIONS",
+  allowedHeaders: "Content-Type, Accept, Authorization"
+};
+
+app.use(cors(corsOptions));
+
 
 app.use(express.json());
 
