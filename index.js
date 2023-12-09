@@ -128,7 +128,7 @@ app.post("/update-instructions", (req, res) => {
 });
 
 app.get("/get-instructions", (req, res) => {
-  res.json(userMessageBuilder.instructions);
+  res.json(userMessageBuilder.getInstructions());
 });
 
 app.listen(port, () => {

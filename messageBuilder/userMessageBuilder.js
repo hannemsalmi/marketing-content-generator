@@ -33,5 +33,5 @@ function updateInstructions(newInstructions) {
 module.exports = {
     buildMessage,
     updateInstructions,
-    instructions
+    getInstructions: () => instructions
 };
