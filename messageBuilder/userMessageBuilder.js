@@ -8,13 +8,13 @@ function buildMessage(topic, content_type, recipient, industry) { // Builds mess
     let finalContent_type = instructions[content_type] || "default instructions";
 
     if (content_type == "instagram") {
-        finalContent_type = instructions[instagram];
+        finalContent_type = instructions['instagram'];
 
     } else if (content_type == "linkedin") {
-        finalContent_type = instructions[linkedin];
+        finalContent_type = instructions['linkedin'];
 
     } else if (content_type == "email") {
-        finalContent_type = instructions[email];
+        finalContent_type = instructions['email'];
 
     } 
 

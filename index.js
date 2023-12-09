@@ -38,7 +38,6 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-
 app.use(express.json());
 
 const apiController = require("./controllers/apiController");
