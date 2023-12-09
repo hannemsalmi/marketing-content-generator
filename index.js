@@ -30,23 +30,6 @@ app.use((req, res, next) => {
   next();
 });
 
-
-app.use((req, res, next) => {
-  res.header(
-    "Access-Control-Allow-Origin",
-    "https://marketing-content-generator-02c05e08f82e.herokuapp.com"
-  );
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  );
-  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-  next();
-});
-
-app.use(cors(corsOptions));
-
-
 app.use(express.json());
 
 const apiController = require("./controllers/apiController");
@@ -140,9 +123,9 @@ app.post("/reset-system-message", (req, res) => {
 
 // Endpoint to get default instruction for a given content type
 app.get("/get-default-instruction/:contentType", (req, res) => {
-  const contentType = req.params.contentType;
-  const defaultInstruction = process.env[`DEFAULT_${contentType.toUpperCase()}_INSTRUCTION`];
-  res.json({ defaultInstruction: defaultInstruction || 'Default instruction not found' });
+    const contentType = req.params.contentType;
+    const defaultInstruction = process.env[`DEFAULT_${contentType.toUpperCase()}_INSTRUCTION`];
+    res.json({ defaultInstruction: defaultInstruction || 'Default instruction not found' });
 });
 
 
