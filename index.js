@@ -51,18 +51,9 @@ app.use("/admin", adminRoute); //Setting the admin routes
 // API route to generate text
 app.post("/generate-text", cors(), async (req, res) => {
   const {
-    userTopic,
-    userContentType,
-    userRecipient,
-    userIndustry,
+    userMessage,
     userTemperature,
   } = req.body;
-  const userMessage = userMessageBuilder.buildMessage(
-    userTopic,
-    userContentType,
-    userRecipient,
-    userIndustry
-  );
 
   // Construct or retrieve the conversation messages array
   const conversation = [
