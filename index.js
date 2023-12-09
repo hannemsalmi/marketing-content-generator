@@ -121,6 +121,14 @@ app.post("/reset-system-message", (req, res) => {
   res.status(200).send("System message reset to default");
 });
 
+// Endpoint to get default instruction for a given content type
+app.get("/get-default-instruction/:contentType", (req, res) => {
+  const contentType = req.params.contentType;
+  const defaultInstruction = process.env[`DEFAULT_${contentType.toUpperCase()}_INSTRUCTION`];
+  res.json({ defaultInstruction: defaultInstruction || 'Default instruction not found' });
+});
+
+
 app.post("/update-instructions", (req, res) => {
   const newInstructions = req.body;
   userMessageBuilder.updateInstructions(newInstructions);
@@ -130,6 +138,7 @@ app.post("/update-instructions", (req, res) => {
 app.get("/get-instructions", (req, res) => {
   res.json(userMessageBuilder.getInstructions());
 });
+
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
