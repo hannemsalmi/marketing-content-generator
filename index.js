@@ -132,7 +132,7 @@ app.post("/reset-system-message", (req, res) => {
 // Endpoint to get default instruction for a given content type
 app.get("/get-default-instruction/:contentType", (req, res) => {
   const contentType = req.params.contentType.toUpperCase();
-  const defaultInstruction = process.env[`DEFAULT_${contentType}_INSTRUCTION`];
+  const defaultInstruction = process.env[`${contentType}_INSTRUCTION`];
 
   if (defaultInstruction) {
       res.json({ defaultInstruction: defaultInstruction });
