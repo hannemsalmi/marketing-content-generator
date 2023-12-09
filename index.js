@@ -121,6 +121,16 @@ app.post("/reset-system-message", (req, res) => {
   res.status(200).send("System message reset to default");
 });
 
+app.post("/update-instructions", (req, res) => {
+  const newInstructions = req.body;
+  userMessageBuilder.updateInstructions(newInstructions);
+  res.status(200).send("Instructions updated");
+});
+
+app.get("/get-instructions", (req, res) => {
+  res.json(userMessageBuilder.instructions);
+});
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

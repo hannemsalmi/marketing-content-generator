@@ -1,14 +1,20 @@
+let instructions = {
+    instagram: process.env.INSTAGRAM_INSTRUCTION,
+    linkedin: process.env.LINKEDIN_INSTRUCTION,
+    email: process.env.EMAIL_INSTRUCTION
+};
+
 function buildMessage(topic, content_type, recipient, industry) { // Builds message to be sent to GPT from the user's chosen preferences.
-    let finalContent_type;
+    let finalContent_type = instructions[content_type] || "default instructions";
 
     if (content_type == "instagram") {
-        finalContent_type = "a bullet point list of 3 Instagram caption suggestions. Please separate each point in list with line breaks as <br>";
+        finalContent_type = instructions[instagram];
 
     } else if (content_type == "linkedin") {
-        finalContent_type = "a LinkedIn post aimed at the customers of the company working in the specified role and industry. Please insert line breaks as <br> and insert two line breaks when the paragraph changes";
+        finalContent_type = instructions[linkedin];
 
     } else if (content_type == "email") {
-        finalContent_type = "an email to send to the customer's mailing list. Please insert line breaks as <br> and bold the subject line with <b> and </b>. Please also insert two line breaks after the subject and also when the paragraph changes";
+        finalContent_type = instructions[email];
 
     } 
 
@@ -19,6 +25,13 @@ function buildMessage(topic, content_type, recipient, industry) { // Builds mess
 
 }
 
+function updateInstructions(newInstructions) {
+    instructions = { ...instructions, ...newInstructions };
+}
+
+
 module.exports = {
     buildMessage,
+    updateInstructions,
+    instructions
 };
