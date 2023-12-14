@@ -2,6 +2,9 @@ let instructions = {
   instagram: process.env.INSTAGRAM_INSTRUCTION,
   linkedin: process.env.LINKEDIN_INSTRUCTION,
   email: process.env.EMAIL_INSTRUCTION,
+  whitepaper: process.env.WHITEPAPER_INSTRUCTION,
+  blog: process.env.BLOG_INSTRUCTION,
+  "e-book": process.env.EBOOK_INSTRUCTION,
 };
 
 function buildMessage(topic, content_type, recipient, industry) {
