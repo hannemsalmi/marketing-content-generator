@@ -4,7 +4,7 @@ let instructions = {
   email: process.env.EMAIL_INSTRUCTION,
   whitepaper: process.env.WHITEPAPER_INSTRUCTION,
   blog: process.env.BLOG_INSTRUCTION,
-  eBook: process.env.EBOOK_INSTRUCTION,
+  ebook: process.env.EBOOK_INSTRUCTION,
 };
 
 function buildMessage(topic, content_type, recipient, industry) {
@@ -21,8 +21,8 @@ function buildMessage(topic, content_type, recipient, industry) {
     finalContent_type = instructions["whitepaper"];
   } else if (content_type == "blog") {
     finalContent_type = instructions["blog"];
-  } else if (content_type == "eBook") {
-    finalContent_type = instructions["eBook"];
+  } else if (content_type == "ebook") {
+    finalContent_type = instructions["ebook"];
   }
 
   return (
