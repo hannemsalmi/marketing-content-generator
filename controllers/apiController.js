@@ -41,10 +41,27 @@ async function generateText(messages, temperature) {
     }
 
     // Process the response and return the generated text
-    const responseData = await gpt4ApiResponse.json();
-    return responseData.choices[0].message.content;
+    // Text generating in chunks
+    const responseStream = await gpt4ApiResponse.body;
+
+    const reader = responseStream.getReader();
+
+    try {
+      while (true) {
+        const { done, value } = await reader.read();
+
+        if (done) {
+          break;
+        }
+
+        // Assuming the value is a chunk of text, adjust accordingly
+        const textChunk = value.toString();
+        yield textChunk;
+      }
+    } finally {
+      reader.releaseLock();
+    }
   } catch (error) {
-    // Handle errors
     console.error("Error generating text:", error);
     throw error;
   }

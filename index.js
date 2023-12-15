@@ -62,12 +62,18 @@ app.post("/generate-text", cors(), async (req, res) => {
   ];
 
   try {
-    const generatedText = await apiController.generateText(
-      conversation,
-      userTemperature
-    );
+    const generator = apiController.generateText(conversation, userTemperature);
+    
+    // Send the initial response
+    res.write("Generating response...\n");
 
-    res.json({ text: generatedText});
+    // Loop through the generated text and send it in chunks
+    for await (const chunk of generator) {
+      res.write(chunk + '\n');
+    }
+
+    // Close the response stream
+    res.end();
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });
