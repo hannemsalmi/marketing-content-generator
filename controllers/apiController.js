@@ -43,9 +43,29 @@ async function generateText(messages, temperature) {
     // Process the response and return the generated text
   
     const responseData = await gpt4ApiResponse.json();
-    return responseData.choices[0].message.content;
+    const generatedText = responseData.choices[0].message.content;
+
+    // Periodically send updates to the client
+    const updateInterval = 500; // Adjust the interval as needed
+    let progress = 0;
+
+    const updateTimer = setInterval(() => {
+      progress += updateInterval;
+      callback({ progress, generatedText: generatedText.substring(0, progress) });
+
+      if (progress >= generatedText.length) {
+        clearInterval(updateTimer);
+      }
+    }, updateInterval);
+
+    // Return the generated text after completion
+    return new Promise(resolve => {
+      setTimeout(() => {
+        clearInterval(updateTimer);
+        resolve(generatedText);
+      }, generatedText.length);
+    });
   } catch (error) {
-    // Handle errors
     console.error("Error generating text:", error);
     throw error;
   }
